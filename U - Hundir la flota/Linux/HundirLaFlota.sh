@@ -1,4 +1,5 @@
 #!/bin/bash
+# Hundir la Flota - Versión básica
 echo ' Va a iniciar el juego de hundir la flota'
 echo 'Este juego está tematizado con ambientación en la 2º Guerra Mundial'
 echo 'Jugarás al mando del Acorazado Iowa, y te enfrentarás a la temida flota nipona Yamato'

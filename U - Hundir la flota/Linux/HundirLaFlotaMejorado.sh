@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Hundir la Flota - Versión mejorada
 
 set -u
 shopt -s extglob
