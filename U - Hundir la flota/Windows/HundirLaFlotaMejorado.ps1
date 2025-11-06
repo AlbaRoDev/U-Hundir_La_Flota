@@ -8,40 +8,40 @@ $OutputEncoding = [System.Text.Encoding]::UTF8
 
 # arrays de texto
 $start_lines = @(
-"La niebla de la manana lo oculta todo."
-"El horizonte se tiñe de plomo y polvora."
+"La niebla de la mañana lo oculta todo."
+"El horizonte se tiñe de plomo y pólvora."
 "El silencio del mar precede a la tormenta."
 "Las sirenas de ataque rompen la calma."
 "Navegamos a ciegas, hacia el inevitable choque."
-"Se oyen disparos lejanos... amigos o enemigos?"
-"El radar no detecta nada, pero la tension es maxima."
-"El destino del oceano esta a punto de decidirse."
-"Los canones rugen, marcando el inicio de la batalla."
-"Maniobras de evasion. El enemigo esta cerca."
+"Se oyen disparos lejanos... ¿amigos o enemigos?"
+"El radar no detecta nada, pero la tensión es máxima."
+"El destino del océano está a punto de decidirse."
+"Los cañones rugen, marcando el inicio de la batalla."
+"Maniobras de evasión. El enemigo está cerca."
 )
 
 $hit_lines = @(
-"Impacto directo! El casco cruje."
+"¡Impacto directo! El casco cruje."
 "Una columna de humo negro se alza en la distancia."
-"Explosion a babor, parece grave."
+"Explosión a babor, parece grave."
 "El mar se tiñe de rojo."
-"Los carronyeros del mar tendran un festin."
-"Un impacto limpio. Bien hecho!"
+"Los carroñeros del mar tendrán un festín."
+"Un impacto limpio. ¡Bien hecho!"
 "Han recibido de lleno. Se tambalean."
 )
 
 $miss_lines = @(
 "Salpicaduras de agua. El misil ha quedado corto."
 "Demasiada distancia. El proyectil se pierde en el mar."
-"Fallo! Hemos sobrepasado el objetivo."
-"Un estruendo, pero solo el agua ha temblado."
+"¡Fallo! Hemos sobrepasado el objetivo."
+"Un estruendo, pero sólo el agua ha temblado."
 "El objetivo esquiva el proyectil con pericia."
 )
 
 $enemy_hit_lines = @(
-"Hemos recibido un impacto! Alerta maxima."
-"El enemigo ha encontrado un punto debil, danos en la sala de maquinas!"
-"Alarma de incendio. El fuego se extiende rapidamente!"
+"¡Hemos recibido un impacto! Alerta máxima."
+"El enemigo ha encontrado un punto débil, ¡daños en la sala de máquinas!"
+"Alarma de incendio. ¡El fuego se extiende rápidamente!"
 "Nos han alcanzado. La estructura se tambalea."
 )
 
@@ -49,7 +49,7 @@ $enemy_miss_lines = @(
 "El estruendo resuena en la distancia, pero el impacto ha sido en el agua."
 "Han fallado el tiro. Por suerte."
 "Un ruido sordo. Por poco."
-"El enemigo ha subestimado la distancia, esquivado!"
+"El enemigo ha subestimado la distancia, ¡esquivado!"
 )
 
 function Rand-Line {
@@ -61,13 +61,13 @@ function Rand-Line {
 
 $historias = @(
 "Guerra de Marruecos (1909-1927)",
-"Guerra del Pacifico - WWII (1941-1945)",
+"Guerra del Pacífico - WWII (1941-1945)",
 "Guerra de Crimea (1853-1856)",
-"Campana de Gallipoli - WWI (1915)",
+"Campaña de Gallípoli - WWI (1915)",
 "Guerra de Independencia de Indonesia (1945-1949)"
 )
 
-$jug_names_0 = @("Acosta","Serrano","De la Hoz","Pena","Ruiz")
+$jug_names_0 = @("Acosta","Serrano","De la Hoz","Peña","Ruiz")
 $ene_names_0 = @("Abdel-Krim","Alaoui","Awada","Saadi","Mehdi")
 
 $jug_names_1 = @("Patterson","Henderson","Fitzgerald","Sullivan","Morgan")
@@ -106,7 +106,7 @@ Write-Host "  $historia"
 Write-Host "  $PLAYER_NAME  vs  $ENEMY_NAME"
 Write-Host "----------------------------------------"
 Write-Host "  $(Rand-Line $start_lines)"
-Write-Host "  El conflicto se presenta en la costa, con niebla y artilleria. Buena suerte."
+Write-Host "  El conflicto se presenta en la costa, con niebla y artillería. Buena suerte."
 Write-Host "========================================"
 Write-Host ""
 
@@ -118,8 +118,8 @@ function Confirmar {
         $r = $respuesta.ToLower()
         $r = $r -replace '[íì]','i' -replace '[áà]','a' -replace '[éè]','e' -replace '[óò]','o' -replace '[úù]','u' -replace 'ñ','n'
         switch ($r) {
-            'no' { Write-Host "Nuestro pais sera recordado por cobarde."; exit 0 }
-            'n'  { Write-Host "Nuestro pais sera recordado por cobarde."; exit 0 }
+            'no' { Write-Host "Nuestro país será recordado por cobarde."; exit 0 }
+            'n'  { Write-Host "Nuestro país será recordado por cobarde."; exit 0 }
             'si' { return }
             's'  { return }
             default { Write-Host "Por favor responda (Si o No)"; }
@@ -205,7 +205,7 @@ function Surrender-Now {
     param([string]$player, [string]$hist)
     Write-Host ""
     Write-Host "El $player ha decidido rendirse. La campaña termina."
-    Write-Host "Fin de la campana: $hist"
+    Write-Host "Fin de la campaña: $hist"
     Write-Host ""
     exit 0
 }
@@ -237,7 +237,7 @@ function Skirmish {
     foreach ($p in $playerpos) { $player_map[$p] = 'P' }
 
     Write-Host "Comienza Escaramuza ($historia). $PLAYER_NAME vs $ENEMY_NAME"
-    Write-Host "Entrada: numero (1..$total) o A1  - escribe rendirse / r / salir para rendirte"
+    Write-Host "Entrada: número (1..$total) o A1  - escribe rendirse / r / salir para rendirte"
     Write-Host ""
 
     $vidas = $player_units
@@ -247,7 +247,7 @@ function Skirmish {
         Print-Grid -arr $enemy_map -rows $rows -cols $cols -vis $enemy_vis -title "Mapa enemigo (niebla)"
         Print-Grid -arr $player_map -rows $rows -cols $cols -title "Tu mapa (unidades propias)"
 
-        $mov_raw = Read-Host "Que casilla atacamos?"
+        $mov_raw = Read-Host "¿Qué casilla atacamos?"
         if ($mov_raw -match '^(?i)(rendirse|salir|r)$') { Surrender-Now -player $PLAYER_NAME -hist $historia }
 
         $idx = Convert-InputToIndex -mov $mov_raw -cols $cols -rows $rows
@@ -298,7 +298,7 @@ function Battle {
     $player_map = @(); $player_vis = @()
     for ($i=0; $i -lt $total; $i++) { $player_map += '-'; $player_vis += 1 }
 
-    $unit_hp = @{ Fragata=1; Crucero=2; Ac0razado=4; Polvorin=2 }
+    $unit_hp = @{ Fragata=1; Crucero=2; Acorazado=4; Polvorin=2 }
     $enemies = 20 + (Get-Random -Minimum 0 -Maximum 11)
 
     function Place-Cluster {
@@ -311,7 +311,7 @@ function Battle {
                 switch ($tnum) {
                     0 { $type = "Fragata" }
                     1 { $type = "Crucero" }
-                    2 { $type = "Ac0razado" }
+                    2 { $type = "Acorazado" }
                     default { $type = "Polvorin" }
                 }
                 $grid[$attempt] = 'E'
@@ -331,7 +331,7 @@ function Battle {
                 switch ($tnum) {
                     0 { $type = "Fragata" }
                     1 { $type = "Crucero" }
-                    2 { $type = "Ac0razado" }
+                    2 { $type = "Acorazado" }
                     default { $type = "Polvorin" }
                 }
                 $grid[$idx] = 'E'
@@ -356,7 +356,7 @@ function Battle {
                 switch ($tnum) {
                     0 { $ty = "Fragata" }
                     1 { $ty = "Crucero" }
-                    2 { $ty = "Ac0razado" }
+                    2 { $ty = "Acorazado" }
                     3 { $ty = "Polvorin" }
                 }
                 $grid[$center] = 'E'
@@ -383,8 +383,8 @@ function Battle {
     Write-Host "BATALLA: $historia"
     Write-Host "Casillas: $total ($rows x $cols)  Enemigos:$enemies  Tus unidades:$player_units"
     $totalAmmo = $w_ammo["Artilleria"] + $w_ammo["Recon"] + $w_ammo["Superbomba"]
-    Write-Host "Municion total: $totalAmmo"
-    Write-Host "  - Artilleria: $($w_ammo['Artilleria'])  Recon: $($w_ammo['Recon'])  Superbomba: $($w_ammo['Superbomba'])"
+    Write-Host "Munición total: $totalAmmo"
+    Write-Host "  - Artillería: $($w_ammo['Artilleria'])  Recon: $($w_ammo['Recon'])  Superbomba: $($w_ammo['Superbomba'])"
     Write-Host ""
 
     $enemigos_vivos = 0
@@ -411,7 +411,7 @@ function Battle {
         Write-Host "Turno $turn"
 
         $totalAmmo = $w_ammo["Artilleria"] + $w_ammo["Recon"] + $w_ammo["Superbomba"]
-        Write-Host "Municion (total $totalAmmo): Artilleria=$($w_ammo['Artilleria'])  Recon=$($w_ammo['Recon'])  Superbomba=$($w_ammo['Superbomba'])"
+        Write-Host "Munición (total $totalAmmo): Artillería=$($w_ammo['Artilleria'])  Recon=$($w_ammo['Recon'])  Superbomba=$($w_ammo['Superbomba'])"
 
         Print-Grid -arr $grid -rows $rows -cols $cols -vis $visible -title "Mapa enemigo (niebla parcial)"
         Print-Grid -arr $player_map -rows $rows -cols $cols -title "Tu mapa (estructuras propias)"
@@ -420,28 +420,28 @@ function Battle {
         for ($i=0; $i -lt $total; $i++) { if ($hp[$i] -gt 0) { $enemigos_vivos++ } }
         Write-Host "Enemigos vivos: $enemigos_vivos"
 
-        if ($enemigos_vivos -le 0) { Write-Host "Victoria total!"; break }
-        if ($totalAmmo -le 0) { Write-Host "Se ha agotado la municion. Has perdido."; break }
+        if ($enemigos_vivos -le 0) { Write-Host "¡Victoria total!"; break }
+        if ($totalAmmo -le 0) { Write-Host "Se ha agotado la munición. Has perdido."; break }
 
-        Write-Host "Elige arma: 1) Artilleria  2) Recon  3) Superbomba  - escribe rendirse / r / salir para rendirte"
-        $aop = Read-Host "Opcion arma (numero)"
+        Write-Host "Elige arma: 1) Artillería  2) Recon  3) Superbomba  - escribe rendirse / r / salir para rendirte"
+        $aop = Read-Host "Opción arma (número)"
         if ($aop -match '^(?i)(rendirse|salir|r)$') { Surrender-Now -player $PLAYER_NAME -hist $historia }
-        if (-not ($aop -match '^[0-9]+$')) { Write-Host "Entrada invalida, turno perdido."; continue }
+        if (-not ($aop -match '^[0-9]+$')) { Write-Host "Entrada inválida, turno perdido."; continue }
         $aop = [int]$aop
-        if ($aop -lt 1 -or $aop -gt 3) { Write-Host "Entrada invalida, turno perdido."; continue }
+        if ($aop -lt 1 -or $aop -gt 3) { Write-Host "Entrada inválida, turno perdido."; continue }
 
         if ($aop -eq 1) { $arma = "Artilleria" }
         elseif ($aop -eq 2) { $arma = "Recon" }
         else { $arma = "Superbomba" }
 
-        if ($w_ammo[$arma] -le 0) { Write-Host "Municion de $arma agotada, turno perdido."; continue }
+        if ($w_ammo[$arma] -le 0) { Write-Host "Munición de $arma agotada, turno perdido."; continue }
 
         $targ = Read-Host "Casilla objetivo (1..$total o ej. A3) - o rendirse"
         if ($targ -match '^(?i)(rendirse|salir|r)$') { Surrender-Now -player $PLAYER_NAME -hist $historia }
 
         $tidx = Convert-InputToIndex -mov $targ -cols $cols -rows $rows
         if ($tidx -eq "SURRENDER") { Surrender-Now -player $PLAYER_NAME -hist $historia }
-        if ([int]$tidx -lt 0) { Write-Host "Objetvo invalido."; continue }
+        if ([int]$tidx -lt 0) { Write-Host "Objetivo invalido."; continue }
 
         $w_ammo[$arma] = $w_ammo[$arma] - 1
         Reveal-Area -cidx $tidx -radius $w_radius[$arma]
@@ -450,13 +450,13 @@ function Battle {
             $hp[$tidx] = $hp[$tidx] - $w_damage[$arma]
             if ($hp[$tidx] -le 0) {
                 $grid[$tidx] = 'H'
-                Write-Host "Impacto! unidad enemiga destruida en casilla $($tidx+1)."
+                Write-Host "¡Impacto! unidad enemiga destruida en casilla $($tidx+1)."
             } else {
-                Write-Host "Impacto: unidad enemiga danada (HP:$($hp[$tidx]))."
+                Write-Host "Impacto: unidad enemiga dañada (HP:$($hp[$tidx]))."
             }
         } else {
             $grid[$tidx] = 'M'
-            Write-Host "No habia objetivo en esa casilla."
+            Write-Host "No había objetivo en esa casilla."
         }
 
         $enemy_shots = 1 + (Get-Random -Minimum 0 -Maximum 3)
@@ -464,16 +464,10 @@ function Battle {
             $eidx = Get-Random -Minimum 0 -Maximum $total
             $visible[$eidx] = 1
             if ($player_map[$eidx] -eq 'P') {
-                Write-Host "El enemigo ha alcanzado una de tus estructuras en casilla $($eidx+1)."
+                Write-Host (Rand-Line $enemy_hit_lines)
                 $player_map[$eidx] = 'M'
             } else {
-                if ($hp[$eidx] -gt 0) {
-                    $hp[$eidx] = $hp[$eidx] - 1
-                    if ($hp[$eidx] -le 0) {
-                        $grid[$eidx] = 'H'
-                        Write-Host "Fuego enemigo destruye unidad enemiga en casilla $($eidx+1)."
-                    }
-                }
+                Write-Host (Rand-Line $enemy_miss_lines)
             }
         }
 
@@ -483,10 +477,10 @@ function Battle {
     Write-Host "Fin Batalla completa."
 }
 
-# pedir modo si no esta definido
+# pedir modo si no está definido
 if (-not $env:modo -and -not (Get-Variable -Name modo -Scope Script -ErrorAction SilentlyContinue)) {
     Write-Host "Elija modo de juego:"
-    Write-Host "  1) Escaramuza (rapido, 4x5)"
+    Write-Host "  1) Escaramuza (rápido, 4x5)"
     Write-Host "  2) Batalla completa (mayor escala)"
     while ($true) {
         $choice = Read-Host "Modo (1/2)"
@@ -495,11 +489,11 @@ if (-not $env:modo -and -not (Get-Variable -Name modo -Scope Script -ErrorAction
         Write-Host "Seleccione 1 o 2."
     }
 } else {
-    # si la variable modo esta en entorno o en script, usarla
+    # si la variable modo está en entorno o en script, usarla
     if ($env:modo) { $script:modo = $env:modo }
 }
 
-Confirmar "Seguro?"
+Confirmar "¿Seguro?"
 if ($script:modo -eq "escaramuza") {
     Skirmish
 } else {
