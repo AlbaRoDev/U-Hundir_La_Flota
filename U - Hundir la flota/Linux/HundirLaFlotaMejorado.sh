@@ -349,7 +349,7 @@ battle() {
     for ((i=0;i<total;i++)); do player_map[$i]='-'; player_vis[$i]=1; done
 
     declare -A unit_hp
-    unit_hp[Fragata]=1; unit_hp[Crucero]=2; unit_hp[Ac0razado]=4; unit_hp[Polvorin]=2
+    unit_hp[Fragata]=1; unit_hp[Crucero]=2; unit_hp[Acorazado]=4; unit_hp[Polvorin]=2
     local enemies=$((20 + RANDOM % 11))
 
     place_cluster() {
@@ -367,7 +367,7 @@ battle() {
                 elif [ "$tnum" -eq 1 ]; then
                     type="Crucero"
                 elif [ "$tnum" -eq 2 ]; then
-                    type="Ac0razado"
+                    type="Acorazado"
                 else
                     type="Polvorin"
                 fi
@@ -396,7 +396,7 @@ battle() {
                 case $tnum in
                     0) type="Fragata" ;;
                     1) type="Crucero" ;;
-                    2) type="Ac0razado" ;;
+                    2) type="Acorazado" ;;
                     3) type="Polvorin" ;;
                 esac
                 grid[$idx]='E'
@@ -407,8 +407,8 @@ battle() {
 
     local placed=0
     while [ "$placed" -lt "$enemies" ]; do
-        strat=$((RANDOM % 3))
-        center=$(( RANDOM % total ))
+        local strat=$((RANDOM % 3))
+        local center=$(( RANDOM % total ))
         if [ "$strat" -eq 0 ]; then
             size=$((1 + RANDOM % 4))
             place_cluster $center $size
@@ -422,7 +422,7 @@ battle() {
                 case $tnum in
                     0) ty="Fragata" ;;
                     1) ty="Crucero" ;;
-                    2) ty="Ac0razado" ;;
+                    2) ty="Acorazado" ;;
                     3) ty="Polvorin" ;;
                 esac
                 grid[$center]='E'
@@ -541,7 +541,7 @@ battle() {
         tidx=$(convert_input_to_index "$targ" $cols $rows)
         if [ "$tidx" = "SURRENDER" ]; then surrender_now; fi
         if [ "$tidx" -lt 0 ]; then
-            echo "Objetvo invalido."
+            echo "Objetivo invalido."
             continue
         fi
 
@@ -566,16 +566,10 @@ battle() {
             eidx=$(( RANDOM % total ))
             visible[$eidx]=1
             if [ "${player_map[$eidx]}" == "P" ]; then
-                echo "El enemigo ha alcanzado una de tus estructuras en casilla $((eidx+1))."
+                echo "$(rand_line enemy_hit_lines)"
                 player_map[$eidx]='M'
             else
-                if [ "${hp[$eidx]}" -gt 0 ]; then
-                    hp[$eidx]=$(( hp[$eidx] - 1 ))
-                    if [ "${hp[$eidx]}" -le 0 ]; then
-                        grid[$eidx]='H'
-                        echo "Fuego enemigo destruye unidad enemiga en casilla $((eidx+1))."
-                    fi
-                fi
+                echo "$(rand_line enemy_miss_lines)"
             fi
         done
 

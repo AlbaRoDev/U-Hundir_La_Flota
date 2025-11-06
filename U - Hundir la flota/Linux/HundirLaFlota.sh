@@ -8,11 +8,15 @@ echo 'Buena suerte mi general'
 echo '------------'
 while true; do
 echo
-read -p '¿Mi general, está seguro de que quiere plantar seguir en la batalla?' sn
-case $sn in
-no ) echo 'Nuestro país será recordado por cobarde.'; exit;;
-Sí ) break;;
-* ) echo 'Por favor responda (Sí o No)';;
+read -p '¿Mi general, está seguro de que quiere seguir en la batalla?' sn
+# Normalizar entrada removiendo acentos
+sn_lower="${sn,,}"
+sn_norm="${sn_lower//í/i}"
+sn_norm="${sn_norm//á/a}"
+case $sn_norm in
+no|n ) echo 'Nuestro país será recordado por cobarde.'; exit;;
+si|s ) break;;
+* ) echo 'Por favor responda (Si o No)';;
 esac
 done
 echo 'Así se habla general. Se van a enterar los japoneses'
@@ -35,10 +39,25 @@ do
 	fi
 	echo ¿Mi general, que casilla bombardeamos?
 	read movimiento
+	# Permitir rendirse
+	case ${movimiento,,} in
+		rendirse|r|salir)
+			echo 'Nuestro país será recordado por cobarde.'
+			exit
+			;;
+	esac
+	# Validar que sea un número
+	if ! [[ "$movimiento" =~ ^[0-9]+$ ]]; then
+		echo "Por favor, introduce un número del 1 al 25"
+		continue
+	fi
+	if [ "$movimiento" -lt 1 ] || [ "$movimiento" -gt 25 ]; then
+		echo "Por favor, introduce un número del 1 al 25"
+		continue
+	fi
 	((movimiento = movimiento - 1))
 	if [ ${buquesenemigos[movimiento]} == 'T' ]
 	then
-		echo movimiento : $vencido
 		echo ¡Mi general, hemos hundido un buque japonés!
 		echo Sigamos hasta acabar con ellos
 		mapadeguerra[$movimiento]='T'
@@ -51,19 +70,9 @@ do
 		echo Mi general, hemos vuelto a dar a un barco ya hundido
 		echo ${mapadeguerra[*]}
 	else
-		echo Jugada : $vencido
 		echo Rayos, hemos errado el disparo y los nipones se acercan
 		echo ${mapadeguerra[*]}
 		((vencido = vencido + 1))
-		while true; do
-echo
-read -p '¿Mi general, está seguro de que quiere seguir en la batalla?' sn
-case $sn in
-no ) echo 'Nuestro país será recordado por cobarde.'; exit;;
-Sí ) break;;
-* ) echo 'Por favor responda (Sí o No)';;
-esac
-done
 	fi
 	
 done
