@@ -1,0 +1,11 @@
+# Asegurar que los scripts de shell siempre usen line endings Unix (LF)
+*.sh text eol=lf
+
+# Asegurar que los scripts de PowerShell usen line endings Windows (CRLF)
+*.ps1 text eol=crlf
+
+# Archivos de texto generales
+*.txt text
+
+# Normalizar todos los archivos de texto
+* text=auto
